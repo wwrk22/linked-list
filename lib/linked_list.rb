@@ -65,12 +65,12 @@ class LinkedList
   end
 
   def at(search_index, curr_node=@head)
-    until search_index == 0 || curr_node == nil do
-      curr_node = curr_node.next_node
+    at_proc = proc do |curr_node|
+      return curr_node if search_index == 0
       search_index -= 1
     end
 
-    return (curr_node == nil) ? nil : curr_node.value
+    return traverse_list(&at_proc)
   end
 
   def contains?(value)
