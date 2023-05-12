@@ -6,6 +6,7 @@ class LinkedList
 
   def initialize(head_value=nil)
     @size = 0
+
     if head_value
       @head = @tail = Node.new(head_value)
       @size += 1
@@ -26,26 +27,34 @@ class LinkedList
     @size += 1
   end
 
-  def at(search_index, curr_node=@head)
-    until search_index == 0 || curr_node == nil do
-      curr_node = curr_node.next_node
-      search_index -= 1
-    end
+  def pop
+    last_node = @tail
+    return nil if @head == nil
+    return last_node if @head == @tail
 
-    return (curr_node == nil) ? nil : curr_node.value
+    last_node = remove_last_node
+    return last_node
   end
 
-  def pop
-    return nil if @head == nil
+  def remove_last_node
+    pop_proc = proc do |curr_node|
+      return update_tail(curr_node) if curr_node.next_node == @tail
+    end
+    return traverse_list(&pop_proc)
+  end
 
-    curr_node, last_node = @head, @tail
-    until curr_node.next_node == @tail || curr_node == @tail
+  # Set the tail to be 'new_tail' then return the old tail node.
+  def update_tail(new_tail)
+    old_tail = @tail
+    @tail = new_tail
+    return old_tail
+  end
+
+  def traverse_list(curr_node=@head)
+    until curr_node == nil do
+      yield curr_node
       curr_node = curr_node.next_node
     end
-
-    @tail = curr_node
-    @tail.next_node = nil
-    return last_node
   end
 
   def to_s
@@ -57,6 +66,15 @@ class LinkedList
     end
 
     str
+  end
+
+  def at(search_index, curr_node=@head)
+    until search_index == 0 || curr_node == nil do
+      curr_node = curr_node.next_node
+      search_index -= 1
+    end
+
+    return (curr_node == nil) ? nil : curr_node.value
   end
 
   def contains?(value)
