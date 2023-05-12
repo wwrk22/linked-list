@@ -58,14 +58,10 @@ class LinkedList
   end
 
   def to_s
-    str = ''
-    curr_node = @head
-    until curr_node == nil do
-      str << curr_node.value.to_s + ' '
-      curr_node = curr_node.next_node
-    end
-
-    str
+    @str = ''
+    to_s_proc = proc { |curr_node| @str += curr_node.value.to_s + ' ' }
+    traverse_list(&to_s_proc)
+    return @str
   end
 
   def at(search_index, curr_node=@head)
