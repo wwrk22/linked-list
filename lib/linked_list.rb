@@ -74,26 +74,23 @@ class LinkedList
   end
 
   def contains?(value)
-    curr_node = @head
-
-    until curr_node == nil do
+    contains_proc = proc do |curr_node|
       return true if curr_node.value == value
-      curr_node = curr_node.next_node
     end
-    
+
+    traverse_list(&contains_proc) # Returns true here if found
     false
   end
 
   def find(value)
-    curr_node = @head
     index = -1
 
-    until curr_node == nil do
+    find_proc = proc do |curr_node|
       index += 1
       return index if curr_node.value == value
-      curr_node = curr_node.next_node
     end
 
-    index
+    traverse_list(&find_proc) # Returns index here if found
+    return -1
   end
 end
