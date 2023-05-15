@@ -15,6 +15,12 @@ puts "contains?(1): #{my_list.contains?(1)}"
 puts "contains?(8): #{my_list.contains?(8)}"
 puts "find(1): #{my_list.find(1)}"
 puts "find(2): #{my_list.find(2)}"
+my_list.insert_at(3, 1)
+puts "insert_at(3, 1): #{my_list.to_s}"
+my_list.insert_at(4, 2)
+puts "insert_at(4, 2): #{my_list.to_s}"
+my_list.insert_at(5, 0)
+puts "insert_at(5, 0): #{my_list.to_s}"
 puts "pop: #{my_list.pop.value}"
 puts "pop: #{my_list.pop.value}"
 puts "pop: #{my_list.pop.value}"

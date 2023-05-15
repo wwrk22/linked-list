@@ -93,4 +93,25 @@ class LinkedList
     traverse_list(&find_proc) # Returns index here if found
     return -1
   end
+
+  def insert_at(value, index)
+    insert_at_head(value) if index == 0
+
+    insert_at_proc = proc do |curr_node|
+      if index == 1
+        new_node = Node.new(value, curr_node.next_node)
+        curr_node.next_node = new_node
+        return
+      end
+
+      index -= 1
+    end
+
+    traverse_list(&insert_at_proc)
+  end
+
+  def insert_at_head(value)
+    new_head = Node.new(value, @head)
+    @head = new_head
+  end
 end
