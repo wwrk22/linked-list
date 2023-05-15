@@ -30,9 +30,15 @@ class LinkedList
   def pop
     last_node = @tail
     return nil if @head == nil
-    return last_node if @head == @tail
+    return remove_single_node if @head == @tail
 
     last_node = remove_last_node
+    return last_node
+  end
+
+  def remove_single_node
+    last_node = @tail
+    @head = @tail = nil
     return last_node
   end
 
@@ -95,6 +101,7 @@ class LinkedList
   end
 
   def insert_at(value, index)
+    @size += 1
     insert_at_head(value) if index == 0
 
     insert_at_proc = proc do |curr_node|
@@ -113,5 +120,27 @@ class LinkedList
   def insert_at_head(value)
     new_head = Node.new(value, @head)
     @head = new_head
+  end
+
+  def remove_at(index)
+    remove_head if index == 0
+
+    prev_node = nil
+    remove_at_proc = proc do |curr_node|
+      prev_node.next_node = curr_node.next_node if index == 0
+      @tail = prev_node if curr_node == @tail
+      index -= 1
+      prev_node = curr_node
+    end
+
+    traverse_list(&remove_at_proc)
+  end
+
+  def remove_head
+    node = @head
+    @head = @head.next_node if @head
+    @tail = nil if @head == nil
+    @size -= 1 if node
+    return node
   end
 end

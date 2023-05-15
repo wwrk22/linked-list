@@ -21,6 +21,10 @@ my_list.insert_at(4, 2)
 puts "insert_at(4, 2): #{my_list.to_s}"
 my_list.insert_at(5, 0)
 puts "insert_at(5, 0): #{my_list.to_s}"
+my_list.remove_at(2)
+puts "remove_at(2): #{my_list.to_s}"
+my_list.remove_at(4)
+puts "remove_at(4): #{my_list.to_s}"
 puts "pop: #{my_list.pop.value}"
 puts "pop: #{my_list.pop.value}"
 puts "pop: #{my_list.pop.value}"
